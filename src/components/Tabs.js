@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 
 
 
-const Tabs = () => {
+const Tabs = ({ weather }) => {
     return (
         <Tab.Navigator
             style={styles.container}
@@ -28,11 +28,13 @@ const Tabs = () => {
                 },
             }}
         >
-            <Tab.Screen name="Current" component={CurrentWeather} options={{
+            <Tab.Screen name="Current" options={{
                 tabBarIcon: ({ focused }) => (
                     <FontAwesome5 name="water" color={focused ? 'tomato' : 'black'} size={30} />
                 ),
-            }} />
+            }}>
+                {() => <CurrentWeather weatherData={weather.list[0]} />}
+            </Tab.Screen>
             <Tab.Screen name="Upcoming Weather" component={UpcomingWeather}
                 options={{
                     tabBarIcon: ({ focused }) => (

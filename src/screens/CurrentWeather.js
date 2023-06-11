@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     highLowWrapper: {
         flexDirection: 'row',
     },
-    temp: {
+    temperature: {
         color: 'black',
         fontSize: 48,
     },
@@ -43,23 +43,25 @@ const styles = StyleSheet.create({
     },
 });
 
-const CurrentWeather = () => {
+const CurrentWeather = ({ weatherData }) => {
+    const { main: { temp, feels_like, temp_min, temp_max }, weather } = weatherData;
+    console.log(weather)
     return (
         <SafeAreaView style={styles.wrapper}>
             <View style={styles.container}>
                 <FontAwesome5Icon name={'sun'} size={100} color={'black'} />
-                <Text style={styles.temp}>8</Text>
-                <Text style={styles.feels}>Feels like 7</Text>
+                <Text style={styles.temperature}>{temp}</Text>
+                <Text style={styles.feels}>Feels like {feels_like}F</Text>
                 <RowText
-                    highText={'High: 10; '}
-                    lowText={'Low: 5'}
+                    highText={`High: ${temp_max}; `}
+                    lowText={`Low: ${temp_min}; `}
                     highLowWrapperStyles={styles.highLowWrapper}
                     highLowStyles={styles.highLow}
                 />
             </View>
             <View style={styles.bodyWrapper}>
-                <Text style={styles.description}>It's Sunny</Text>
-                <Text style={styles.message}>It's Perfect T-Shirt Weather</Text>
+                <Text style={styles.description}>{weather[0].main}</Text>
+                <Text style={styles.message}>{weather[0].description}</Text>
             </View>
         </SafeAreaView>
     );
